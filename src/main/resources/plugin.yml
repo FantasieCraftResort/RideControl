@@ -1,0 +1,8 @@
+name: RideControl
+version: '1.0'
+main: me.tyfcho.rideControl.RideControl
+api-version: '1.21'
+
+depend:
+  - PlaceholderAPI
+  - BKCommonLib
