@@ -85,4 +85,4 @@ Truth tables for each logic gate:
 
 
 ## Implementation
-T.B.A.
+For the actual implementation, please refer to: [the scripting documentation](https://github.com/FantasieCraftResort/RideControl/blob/master/Documentation/Scripting/Scripting.md).
