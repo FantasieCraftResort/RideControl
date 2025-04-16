@@ -1,0 +1,15 @@
+name: RideControl
+version: 1.0.0
+entrypoint: me.tyfcho.rideControl.RideControlBootstrap
+loader: java
+api-version: 1.21
+
+authors:
+  - tyfcho
+
+dependencies:
+  server:
+    PlaceholderAPI:
+      required: true
+    BKCommonLib:
+      required: true
