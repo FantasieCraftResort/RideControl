@@ -6,7 +6,7 @@ This document defines the scripting language syntax for LogicGateSystem. It is d
 
 ## 🧾 Basic Structure (YAML)
 
-Each logic circuit is written in YAML, with the logic expression defined using symbolic operators.
+Each logic circuit is written in YAML, with the logic expression defined using symbolic [operators](#Operators).
 
 ### Operators
 - `&` = AND
@@ -18,7 +18,7 @@ Each logic circuit is written in YAML, with the logic expression defined using s
 ## 🔌 Fields Explained
 
 ### `switch` (required)
-A logic expression combining inputs using symbolic operators.
+A logic expression combining inputs using symbolic [operators](#Operators).
 - Use `&`, `|`, and `!` to define logic
 - Inputs are treated as booleans (true/false)
 - Parentheses `()` can be used to group expressions
@@ -63,7 +63,7 @@ shutdown_safety:
 ### Complex Expression
 ```yaml
 main_gate:
-  switch: (AccessCard & BiometricScan) | AdminOverride
+  switch: (GateActuation & AreaClear) | ManualGateActuation
   output:
     true: "/tcc power Pulse gate_channel"
 ```
