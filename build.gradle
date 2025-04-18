@@ -1,6 +1,7 @@
 plugins {
     id "java"
     id("com.github.johnrengelman.shadow") version "8.1.1"
+    id "java-library"
 }
 
 group = 'me.tyfcho'
@@ -30,10 +31,7 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.11.5")
 
     // BKCommonLib
-    compileOnly("com.bergerkiller.bukkit:BKCommonLib:1.21.1-v1")
-
-    // SoftDependency if needed
-    compileOnly("com.bergerkiller.bukkit.softdependency:1.21.1-v1")
+    compileOnlyApi("com.bergerkiller.bukkit:BKCommonLib:1.21.1-v1")
 
     // Cloud integrated in BKCommonLib
     compileOnly("org.incendo:cloud-paper")
