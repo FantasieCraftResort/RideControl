@@ -1,5 +1,7 @@
 package me.tyfcho.rideControl.ride;
 
+import me.tyfcho.rideControl.logic.LogicGate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,14 +11,8 @@ import java.util.List;
 public class Ride {
     private final String id;
     private final String name;
-    private final List<String> logicGates;
+    private final List<LogicGate> logicGates;
 
-    /**
-     * Constructs a new Ride.
-     *
-     * @param id   The unique identifier for the ride.
-     * @param name The name of the ride.
-     */
     public Ride(String id, String name) {
         this.id = id;
         this.name = name;
@@ -31,16 +27,18 @@ public class Ride {
         return name;
     }
 
-    public List<String> getLogicGates() {
+    public List<LogicGate> getLogicGates() {
         return logicGates;
     }
 
-    /**
-     * Adds a logic gate to the ride.
-     *
-     * @param logicGate The logic gate to add.
-     */
-    public void addLogicGate(String logicGate) {
+    public void addLogicGate(LogicGate logicGate) {
         logicGates.add(logicGate);
+    }
+
+    public boolean evaluateLogicGate(int index, boolean... inputs) {
+        if (index < 0 || index >= logicGates.size()) {
+            throw new IndexOutOfBoundsException("Invalid logic gate index.");
+        }
+        return logicGates.get(index).evaluate(inputs);
     }
 }
