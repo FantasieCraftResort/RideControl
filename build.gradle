@@ -41,6 +41,16 @@ dependencies {
     // Adventure MiniMessage
     implementation("net.kyori:adventure-api:4.14.0")
     implementation("net.kyori:adventure-text-minimessage:4.14.0")
+
+    // SnakeYAML for YAML parsing
+    implementation("org.yaml:snakeyaml:2.0")
+
+    // JUnit 5 for unit testing
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+
+    // Mockito for mocking
+    testImplementation("org.mockito:mockito-core:5.5.0")
+
 }
 
 tasks {
