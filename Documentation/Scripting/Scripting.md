@@ -12,6 +12,10 @@ Each logic circuit is written in YAML, with the logic expression defined using s
 - `&` = AND
 - `|` = OR
 - `!` = NOT (inversion)
+- `~&` = NAND (negation of AND)
+- `~|` = NOR (negation of OR)
+- `^` = XOR (exclusive OR)
+- `~^` = XNOR (negation of XOR)
 
 ---
 
@@ -43,7 +47,16 @@ restraints:
 
 ## ⚙️ More Examples
 
-### OR Gate with Toggle
+### AND Gate
+```yaml
+safety_check:
+  switch: Button1 & Button2
+  output:
+    true: "/tcc power On safety_channel"
+    false: "/tcc power Off safety_channel"
+```
+
+### OR Gate
 ```yaml
 launch_trigger:
   switch: LaunchButton | AdminOverride
@@ -51,13 +64,48 @@ launch_trigger:
     true: "/tcc power Toggle launch_channel"
 ```
 
-### Inverted Logic
+### NOT Gate
 ```yaml
 shutdown_safety:
   switch: !EmergencyStop & SystemReady
   output:
     true: "/tcc power On safety_channel"
     false: "/tcc power Off safety_channel"
+```
+
+### NAND Gate
+```yaml
+safety_check:
+  switch: ~(SystemReady & EmergencyStop)
+  output:
+    true: "/tcc power On safety_channel"
+    false: "/tcc power Off safety_channel"
+```
+
+### NOR Gate
+```yaml
+override_lock:
+  switch: ~(AdminOverride | ManualOverride)
+  output:
+    true: "/tcc power On lock_channel"
+    false: "/tcc power Off lock_channel"
+```
+
+### XOR Gate
+```yaml
+toggle_mode:
+  switch: ModeA ^ ModeB
+  output:
+    true: "/tcc power Toggle mode_channel"
+```
+
+### XNOR Gate
+```yaml
+sync_check:
+  switch: ~(ModeA ^ ModeB)
+  output:
+    true: "/tcc power On sync_channel"
+    false: "/tcc power Off sync_channel"
 ```
 
 ### Complex Expression
@@ -70,21 +118,23 @@ main_gate:
 
 ---
 
-## 🧠 Java Parsing Notes
+## 🛠️ Implementation Notes
+- The YAML file should be parsed into a `Map<String, LogicCircuit>` where each key is the circuit name.
+- The `switch` string should be evaluated using a basic boolean expression parser.
+- The `output` field should contain two commands: one for `true` and one for `false`.
+- The commands should be executed based on the evaluation of the `switch` expression.
+- The `switch` expression can include nested expressions and should be evaluated in a way that respects operator precedence.
+- The parser should handle logical operators and parentheses correctly to ensure accurate evaluation.
 
-Suggested class structure for parsing:
-
-```java
-class LogicCircuit {
-    String switch;
-    Map<Boolean, String> output;
-}
-```
-
+## 🧩 Parsing and Execution
+To implement the logic circuit system, follow these steps:
 - Parse YAML into a `Map<String, LogicCircuit>`
 - Evaluate the `switch` string using a basic boolean expression parser
 - Execute the correct command from `output.get(true/false)`
+- Handle exceptions and errors gracefully
+- Log the results of command execution for debugging purposes
+- Ensure that the system can handle concurrent evaluations and command executions
+- Consider thread safety and synchronization if necessary
+- Implement unit tests for the parser and command execution to ensure correctness
 
 ---
-
-This format is powerful yet easy to write, offering flexible logic expressions and actionable command outputs.
